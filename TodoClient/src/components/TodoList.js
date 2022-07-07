@@ -41,7 +41,6 @@ export default class TodoList extends React.Component {
 
   createTodoItem(newID, insertIndex) {
     const todoItemIDList = this.state.todoItemIDList.slice()
-    //todoItemIDList.push(newID)
     todoItemIDList.splice(insertIndex, 0, newID)
 
     const items = {...this.state.items}
@@ -51,17 +50,12 @@ export default class TodoList extends React.Component {
       todoItemIDList: todoItemIDList,
       items: items,
     })
-
-    //TODO: call api to save the new item
   }
 
   setNameEditingId(id) {
     this.setState({
       activeItemId: id
     })
-
-    //TODO: perhaps call api to save any new item or name change here
-
   }
 
   handleItemNameChange(id, value) {
@@ -69,8 +63,6 @@ export default class TodoList extends React.Component {
     items[id] = value
 
     this.setState({ items: items })
-
-    //TODO: call api to update itemName
   }
 
   handleItemNameClick(id) {
@@ -136,7 +128,6 @@ export default class TodoList extends React.Component {
       activeItemId: null,
     })
 
-    //TODO: call api to move item to the other list
     TodoListService.checkItem(id, index, shrinkingListName)
   }
 
@@ -164,7 +155,6 @@ export default class TodoList extends React.Component {
       todoItemIDList: list
     })
 
-    // Note: can use merge patch as I'm replacing the whole array
     TodoListService.mergePatch({ [TodoListService.keys.TODO_ITEM_ID_LIST]: list })
   }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import TodoItemBody from './TodoItemBody';
 import NameInput from "./NameInput";
 
@@ -39,6 +38,7 @@ export default class ActiveTodoItem extends React.Component {
               onItemNameChange={this.props.onItemNameChange}
               onInputExit={this.props.onInputExit}
               onClickOutsideTodoItem={this.handleClickOutsideTodoItem}
+              onBackspaceEmpty={this.props.onBackspaceEmpty}
             ></NameInput>}
           ></TodoItemBody>
         </span>
@@ -46,6 +46,3 @@ export default class ActiveTodoItem extends React.Component {
     );
   }
 }
-//ActiveTodoItem.propTypes = {
-//  id: PropTypes.string,
-//}

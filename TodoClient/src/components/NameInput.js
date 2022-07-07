@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 export default class NameInput extends React.Component {
   constructor(props) {
@@ -18,15 +17,28 @@ export default class NameInput extends React.Component {
   }
 
   handleKeyDown(e) {
+    console.log("key down " + this.props.id)
+    console.log(e)
     const key = e.key;
-    if (key === 'Enter' || key === 'Escape') {
-      this.props.onInputExit(this.props.id, key === 'Enter')
-    } else if (key === 'Backspace') {
-      //TODO
+    switch (key) {
+      case 'Enter':
+      case 'Escape':
+        this.props.onInputExit(this.props.id, key === 'Enter')
+        break
+      case 'Backspace':
+        if (this.props.name === '') {
+          this.props.onBackspaceEmpty(this.props.id)
+          e.preventDefault() // figure out why this works!!
+        }
+        break
+      default:
+        return
     }
   }
 
   handleItemNameChange(e) {
+    console.log("name change " + this.props.id)
+    console.log(e)
     this.props.onItemNameChange(this.props.id, e.target.value);
   }
 
@@ -41,7 +53,4 @@ export default class NameInput extends React.Component {
       ></input>
     );
   }
-}
-NameInput.propTypes = {
-  //id: PropTypes.string,
 }

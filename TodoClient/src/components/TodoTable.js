@@ -30,6 +30,7 @@ export default class TodoTable extends React.Component {
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     this.handleInputExit = this.handleInputExit.bind(this)
+    this.handleBackspaceEmpty = this.handleBackspaceEmpty.bind(this)
   }
 
   handleAddButtonClick() {
@@ -51,6 +52,17 @@ export default class TodoTable extends React.Component {
     } else {
       this.props.setNameEditingId(null);
     }
+  }
+
+  handleBackspaceEmpty(id) {
+    if (this.props.todoItemIDList.length <= 1) return
+    
+    const index = this.props.todoItemIDList.indexOf(id)
+    if (index < 0) return
+
+    const nextItemID = index > 0 ? this.props.todoItemIDList[index - 1] : this.props.todoItemIDList[1]
+    this.props.onDeleteBtnClick(id)
+    this.props.setNameEditingId(nextItemID)
   }
 
   createNewItem(insertIndex) {
@@ -90,6 +102,7 @@ export default class TodoTable extends React.Component {
           onInputExit={this.handleInputExit}
           onItemCheck={this.props.onItemCheck}
           onDeleteBtnClick={this.props.onDeleteBtnClick}
+          onBackspaceEmpty={this.handleBackspaceEmpty}
         ></ItemListWithReordering>
         <AddButton onClick={this.handleAddButtonClick}></AddButton>
       </>
@@ -99,5 +112,4 @@ export default class TodoTable extends React.Component {
 TodoTable.propTypes = {
   todoItemIDList: PropTypes.array,
   items: PropTypes.object,
-  //activeItemId: PropTypes.string
 };

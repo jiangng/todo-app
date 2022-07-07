@@ -1,5 +1,4 @@
-﻿
-const USER_ID = 1
+﻿const USER_ID = 1
 const TODOLIST_ID = 1
 
 const TodoListService = {

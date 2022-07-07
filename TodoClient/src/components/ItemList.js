@@ -47,6 +47,7 @@ export default class ItemList extends React.Component {
           // For active todoItem
           onInputExit={this.props.onInputExit}
           onItemNameChange={this.props.onItemNameChange}
+          onBackspaceEmpty={this.props.onBackspaceEmpty}
 
           // For dormant todoItem
           onItemNameClick={this.props.onItemNameClick}
@@ -68,7 +69,6 @@ export default class ItemList extends React.Component {
 ItemList.propTypes = {
   itemIDList: PropTypes.array,
   items: PropTypes.object,
-  //activeItemId: PropTypes.string,
   reorderingProp: PropTypes.object
 };
 ItemList.defaultProps = {
@@ -78,4 +78,5 @@ ItemList.defaultProps = {
   onItemNameClick: () => { },
   onInputExitByKeyDown: () => { },
   onInputExitByOutsideClick: () => { },
+  onBackspaceEmpty: () => { }
 };

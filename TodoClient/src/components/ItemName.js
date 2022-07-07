@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 export default class ItemName extends React.Component {
   constructor(props) {
@@ -30,7 +29,4 @@ export default class ItemName extends React.Component {
       </span>
     );
   }
-}
-ItemName.propTypes = {
-  //id: PropTypes.string,
 }

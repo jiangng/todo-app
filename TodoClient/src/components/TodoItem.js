@@ -14,6 +14,7 @@ export default class TodoItem extends React.Component {
 
         onInputExit={this.props.onInputExit}
         onItemNameChange={this.props.onItemNameChange}
+        onBackspaceEmpty={this.props.onBackspaceEmpty}
       ></ActiveTodoItem>
     ) : (
       <DormantTodoItem

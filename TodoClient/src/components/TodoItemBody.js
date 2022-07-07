@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 export default class TodoItemBody extends React.Component {
   constructor(props) {
@@ -40,9 +39,7 @@ export default class TodoItemBody extends React.Component {
     );
   }
 }
-TodoItemBody.propTypes = {
-  //id: PropTypes.string,
-}
+
 TodoItemBody.defaultProps = {
   isCheckBoxDisabled: false,
   isShowingDeleteBtn: true,
