@@ -17,8 +17,6 @@ export default class NameInput extends React.Component {
   }
 
   handleKeyDown(e) {
-    console.log("key down " + this.props.id)
-    console.log(e)
     const key = e.key;
     switch (key) {
       case 'Enter':
@@ -28,7 +26,8 @@ export default class NameInput extends React.Component {
       case 'Backspace':
         if (this.props.name === '') {
           this.props.onBackspaceEmpty(this.props.id)
-          e.preventDefault() // figure out why this works!!
+          // Call preventDefault to cancel keypress event, which is the default event triggered after keydown that will trigger onchange for the next active item
+          e.preventDefault() 
         }
         break
       default:
@@ -37,8 +36,6 @@ export default class NameInput extends React.Component {
   }
 
   handleItemNameChange(e) {
-    console.log("name change " + this.props.id)
-    console.log(e)
     this.props.onItemNameChange(this.props.id, e.target.value);
   }
 
