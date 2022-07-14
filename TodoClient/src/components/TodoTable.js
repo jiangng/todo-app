@@ -31,6 +31,7 @@ export default class TodoTable extends React.Component {
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     this.handleInputExit = this.handleInputExit.bind(this)
     this.handleBackspaceEmpty = this.handleBackspaceEmpty.bind(this)
+    this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this)
   }
 
   handleAddButtonClick() {
@@ -54,15 +55,27 @@ export default class TodoTable extends React.Component {
     }
   }
 
+  handleDeleteBtnClick(id) {
+    this.props.onDeleteBtnClick(id)
+
+    if (this.state.wasNewItemCreated) {
+      this.setState({ wasNewItemCreated: false })
+    }
+  }
+
   handleBackspaceEmpty(id) {
     if (this.props.todoItemIDList.length <= 1) return
-    
+
     const index = this.props.todoItemIDList.indexOf(id)
     if (index < 0) return
 
     const nextItemID = index > 0 ? this.props.todoItemIDList[index - 1] : this.props.todoItemIDList[1]
     this.props.onDeleteBtnClick(id)
     this.props.setNameEditingId(nextItemID)
+
+    if (this.state.wasNewItemCreated) {
+      this.setState({ wasNewItemCreated: false })
+    }
   }
 
   createNewItem(insertIndex) {
@@ -101,7 +114,7 @@ export default class TodoTable extends React.Component {
           onItemNameChange={this.props.onItemNameChange}
           onInputExit={this.handleInputExit}
           onItemCheck={this.props.onItemCheck}
-          onDeleteBtnClick={this.props.onDeleteBtnClick}
+          onDeleteBtnClick={this.handleDeleteBtnClick}
           onBackspaceEmpty={this.handleBackspaceEmpty}
         ></ItemListWithReordering>
         <AddButton onClick={this.handleAddButtonClick}></AddButton>

@@ -35,6 +35,17 @@ namespace todo_app.Controllers
         {
         }
 
+        [HttpPut("reset/{userID}/{listID}")]
+        public async Task<OkResult> ResetAsync(int userID, int listID)
+        {
+            var todoList = await _repo.GetTodoList(userID, listID);
+            todoList.CheckedItemIDs.Clear();
+            todoList.TodoItemIDs.Clear();
+            todoList.Items.Clear();
+            await _repo.UpdateTodoListAsync(todoList);
+            return Ok();
+        }
+
         //PATCH api/<TodoListsController>/1/1
         // Best practice to use either JSON Patch or JSON Merge Patch format to use HttpPatch
         [HttpPatch("{userID}/{listID}")]
