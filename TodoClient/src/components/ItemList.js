@@ -6,25 +6,19 @@ export default class ItemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deleteBtnShowingItemId: null
+      mouseEnterId: null
     };
 
     this.handleMouseEnterLeave = this.handleMouseEnterLeave.bind(this);
-  }
-
-  componentDidMount() {
-    console.log("mounted")
-  }
-  componentWillUnmount() {
-    console.log("unmounted")
+    this.handleItemNameClick = this.handleItemNameClick.bind(this);
   }
 
   handleMouseEnterLeave(eventType, id) {
     if (this.props.activeItemId == null) {
-      let deleteBtnShowingItemId = null;
+      let mouseEnterId = null;
       switch (eventType) {
         case "mouseenter":
-          deleteBtnShowingItemId = id;
+          mouseEnterId = id;
           break;
         case "mouseleave":
           //empty for now
@@ -34,9 +28,16 @@ export default class ItemList extends React.Component {
       }
 
       this.setState({
-        deleteBtnShowingItemId: deleteBtnShowingItemId
+        mouseEnterId: mouseEnterId
       });
     }
+  }
+
+  handleItemNameClick(id) {
+    this.props.onItemNameClick(id)
+    this.setState({
+      mouseEnterId: null
+    });
   }
 
   render() {
@@ -57,11 +58,11 @@ export default class ItemList extends React.Component {
           onBackspaceEmpty={this.props.onBackspaceEmpty}
 
           // For dormant todoItem
-          onItemNameClick={this.props.onItemNameClick}
+          onItemNameClick={this.handleItemNameClick}
           onMouseEnterLeave={this.handleMouseEnterLeave}
           reorderingProp={this.props.reorderingProp}
           isCheckBoxDisabled={this.props.activeItemId && this.props.activeItemId !== id}
-          isShowingDeleteBtn={this.props.activeItemId === id || this.state.deleteBtnShowingItemId === id}
+          isShowingDeleteBtn={this.props.activeItemId === id || this.state.mouseEnterId === id}
         ></TodoItem>
       );
     });
