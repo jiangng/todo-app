@@ -69,7 +69,7 @@ export default class TodoList extends React.Component {
     this.setNameEditingId(id)
   }
 
-  removeItem(id) {
+  removeItem(id, wasItemSaved) {
     let targetList
     let listName
     let backendListName
@@ -96,11 +96,11 @@ export default class TodoList extends React.Component {
       items: items
     })
 
-    TodoListService.deleteItem(id, index, backendListName)
+    wasItemSaved && TodoListService.deleteItem(id, index, backendListName)
   }
 
-  handleDeleteBtnClick(id) {
-    this.removeItem(id)
+  handleDeleteBtnClick(id, wasItemSaved = true) {
+    this.removeItem(id, wasItemSaved)
     if (this.state.activeItemId) 
       this.setNameEditingId(null)
   }

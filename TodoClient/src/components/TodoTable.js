@@ -29,6 +29,7 @@ export default class TodoTable extends React.Component {
       initialActiveItemName: props.activeItemId
     };
 
+    // HOC should be instantiated outside render() otherwise the wrapped component would be recreated everytime there's an update, losing the benefits of component lifecycle
     this.ItemListWithReordering = withReordering(ItemList, this.props.reorder, getDragOverEffectOnVerticalList);
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
@@ -59,11 +60,7 @@ export default class TodoTable extends React.Component {
   }
 
   handleDeleteBtnClick(id) {
-    this.props.onDeleteBtnClick(id)
-
-    if (this.state.wasNewItemCreated) {
-      this.setState({ wasNewItemCreated: false })
-    }
+    this.deleteItem(id)
   }
 
   handleBackspaceEmpty(id) {
@@ -73,8 +70,14 @@ export default class TodoTable extends React.Component {
     if (index < 0) return
 
     const nextItemID = index > 0 ? this.props.todoItemIDList[index - 1] : this.props.todoItemIDList[1]
-    this.props.onDeleteBtnClick(id)
     this.props.setNameEditingId(nextItemID)
+
+    this.deleteItem(id)
+  }
+
+  deleteItem(id) {
+    const wasItemSaved = !this.state.wasNewItemCreated
+    this.props.onDeleteBtnClick(id, wasItemSaved)
 
     if (this.state.wasNewItemCreated) {
       this.setState({ wasNewItemCreated: false })
@@ -104,8 +107,6 @@ export default class TodoTable extends React.Component {
   }
 
   render() {
-    // ItemListWithReordering = withReordering(ItemList, this.props.reorder, getDragOverEffectOnVerticalList);
-
     return (
       <>
         <this.ItemListWithReordering
