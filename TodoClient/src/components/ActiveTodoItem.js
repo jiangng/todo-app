@@ -6,6 +6,10 @@ export default class ActiveTodoItem extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      initialName: props.name
+    }
+
     // https://reactjs.org/docs/refs-and-the-dom.html
     this.todoItemRef = React.createRef();
 
@@ -15,7 +19,7 @@ export default class ActiveTodoItem extends React.Component {
   handleClickOutsideTodoItem(e) {
     // Ref: React will assign the current property with the DOM element when the component mounts, and assign it back to null when it unmounts
     if (!this.todoItemRef.current.contains(e.target)) {
-      this.props.onInputExit(this.props.id)
+      this.props.onInputExit(this.props.id, this.state.initialName !== this.props.name)
     }
   }
 
@@ -35,6 +39,7 @@ export default class ActiveTodoItem extends React.Component {
             nameField={<NameInput
               id={this.props.id}
               name={this.props.name}
+              shouldUpdateName={this.state.initialName !== this.props.name}
               onItemNameChange={this.props.onItemNameChange}
               onInputExit={this.props.onInputExit}
               onClickOutsideTodoItem={this.handleClickOutsideTodoItem}

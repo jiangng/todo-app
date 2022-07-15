@@ -48,9 +48,9 @@ namespace todo_app.Controllers
 
         //PATCH api/<TodoListsController>/1/1
         // Best practice to use either JSON Patch or JSON Merge Patch format to use HttpPatch
-        [HttpPatch("{userID}/{listID}")]
+        [HttpPatch("{action}/{userID}/{listID}")]
         [Consumes(JsonMergePatchDocument.ContentType)]
-        public async Task<IActionResult> Patch(int userID, int listID, [FromBody] JsonMergePatchDocument<TodoList> patch)
+        public async Task<IActionResult> MergePatch(int userID, int listID, [FromBody] JsonMergePatchDocument<TodoList> patch)
         {
             var todoList = await _repo.GetTodoList(userID, listID);
 
@@ -60,7 +60,7 @@ namespace todo_app.Controllers
             return Ok();
         }
 
-        [HttpPatch("jsonpatch/{userID}/{listID}")]
+        [HttpPatch("{action}/{userID}/{listID}")]
         public async Task<IActionResult> JsonPatch(int userID, int listID, [FromBody] JsonPatchDocument<TodoList> patch)
         {
             var todoList = await _repo.GetTodoList(userID, listID);

@@ -25,8 +25,11 @@ export default class TodoTable extends React.Component {
 
     this.state = {
       nextAvailableID: maxID + 1,
-      wasNewItemCreated: null
+      wasNewItemCreated: null,
+      initialActiveItemName: props.activeItemId
     };
+
+    this.ItemListWithReordering = withReordering(ItemList, this.props.reorder, getDragOverEffectOnVerticalList);
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     this.handleInputExit = this.handleInputExit.bind(this)
@@ -38,12 +41,12 @@ export default class TodoTable extends React.Component {
     this.createNewItem(this.props.todoItemIDList.length)
   }
 
-  handleInputExit(id, createNewItem = false) {
+  handleInputExit(id, shouldUpdateName, createNewItem = false) {
     if (this.state.wasNewItemCreated) {
       this.saveNewItem(id)
       if (!createNewItem) 
         this.setState({ wasNewItemCreated: false });
-    } else {
+    } else if (shouldUpdateName) {
       this.updateName(id)
     }
 
@@ -101,11 +104,11 @@ export default class TodoTable extends React.Component {
   }
 
   render() {
-    const ItemListWithReordering = withReordering(ItemList, this.props.reorder, getDragOverEffectOnVerticalList);
+    // ItemListWithReordering = withReordering(ItemList, this.props.reorder, getDragOverEffectOnVerticalList);
 
     return (
       <>
-        <ItemListWithReordering
+        <this.ItemListWithReordering
           itemIDList={this.props.todoItemIDList}
           items={this.props.items}
           isComplete={false}
@@ -116,7 +119,7 @@ export default class TodoTable extends React.Component {
           onItemCheck={this.props.onItemCheck}
           onDeleteBtnClick={this.handleDeleteBtnClick}
           onBackspaceEmpty={this.handleBackspaceEmpty}
-        ></ItemListWithReordering>
+        ></this.ItemListWithReordering>
         <AddButton onClick={this.handleAddButtonClick}></AddButton>
       </>
     );

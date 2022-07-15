@@ -21,7 +21,7 @@ export default class NameInput extends React.Component {
     switch (key) {
       case 'Enter':
       case 'Escape':
-        this.props.onInputExit(this.props.id, key === 'Enter')
+        this.props.onInputExit(this.props.id, this.props.shouldUpdateName, key === 'Enter')
         break
       case 'Backspace':
         if (this.props.name === '') {

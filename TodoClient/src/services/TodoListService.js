@@ -16,7 +16,7 @@ const TodoListService = {
   },
 
   mergePatch: function (data) {
-    fetch(`/api/todolists/${USER_ID}/${TODOLIST_ID}`, {
+    fetch(`/api/todolists/mergepatch/${USER_ID}/${TODOLIST_ID}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/merge-patch+json' },
       body: JSON.stringify(data)

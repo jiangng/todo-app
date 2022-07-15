@@ -12,6 +12,13 @@ export default class ItemList extends React.Component {
     this.handleMouseEnterLeave = this.handleMouseEnterLeave.bind(this);
   }
 
+  componentDidMount() {
+    console.log("mounted")
+  }
+  componentWillUnmount() {
+    console.log("unmounted")
+  }
+
   handleMouseEnterLeave(eventType, id) {
     if (this.props.activeItemId == null) {
       let deleteBtnShowingItemId = null;
